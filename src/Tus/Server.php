@@ -349,6 +349,11 @@ class Server extends AbstractTus
             return $this->response->send(null, HttpResponse::HTTP_BAD_REQUEST);
         }
 
+        setlocale(LC_ALL,'en_US.UTF-8');
+        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+        $uuid4 = Uuid::uuid4()->toString();
+        $fileName = "{$uuid4}.{$ext}";
+
         if ( ! $this->verifyUploadSize()) {
             return $this->response->send(null, HttpResponse::HTTP_REQUEST_ENTITY_TOO_LARGE);
         }
